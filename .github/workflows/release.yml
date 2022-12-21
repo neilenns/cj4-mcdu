@@ -69,6 +69,12 @@ jobs:
         id: build_server
         run: npm run build:mcdu-server
 
+      - name: Build mod
+        id: build_mod
+        run: ./build.ps1
+        shell: pwsh
+        working-directory: src/mod
+
       - name: Build release folder contents
         id: build_release_folder
         run: |
