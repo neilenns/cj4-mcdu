@@ -90,7 +90,7 @@ jobs:
       - name: Zip output
         id: zip_output
         working-directory: build
-        run: Compress-Archive . "../${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
+        run: Compress-Archive ./* "../${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
