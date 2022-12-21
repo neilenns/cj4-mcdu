@@ -20,7 +20,6 @@ jobs:
     defaults:
       run:
         working-directory: src/app
-        shell: pwsh
 
     steps:
       - uses: actions/checkout@v3
@@ -75,9 +74,9 @@ jobs:
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          Move-Item "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
-          Copy-Item ../../readme.md ../../build
-          Copy-Item ../../version ../../build
+          mv "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
+          cp ../../readme.md ../../build
+          cp ../../version ../../build
 
       # Install the zip command line tool to package up the output
       - name: Install zip
