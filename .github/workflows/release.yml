@@ -11,7 +11,7 @@ on:
         default: "0.0.1"
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: ubuntu-latest
 
     env:
       MCDUServerFileName: "cj4-mcdu-server.exe"
