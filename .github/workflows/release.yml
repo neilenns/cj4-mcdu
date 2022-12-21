@@ -82,15 +82,10 @@ jobs:
           cp readme.md build
           cp version build
 
-      # Install the zip command line tool to package up the output
-      - name: Install zip
-        id: install_zip
-        uses: montudor/action-zip@v1
-
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" .
-        working-directory: build
+        shell: pwsh
+        run: Compress-Archive ./build "${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
