@@ -85,7 +85,8 @@ jobs:
       - name: Zip output
         id: zip_output
         shell: pwsh
-        run: Compress-Archive ./build "${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
+        working-directory: build
+        run: Compress-Archive . "../${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
