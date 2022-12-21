@@ -16,10 +16,6 @@ jobs:
     env:
       MCDUServerFileNameBase: "cj4-mcdu-server"
 
-    defaults:
-      run:
-        working-directory: src/app
-
     steps:
       - uses: actions/checkout@v3
 
