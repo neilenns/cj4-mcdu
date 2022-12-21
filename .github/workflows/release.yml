@@ -72,7 +72,7 @@ jobs:
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          mv "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}-${{ env.version }}"
+          mv "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.exe"
           cp ../../readme.md ../../build
           cp ../../version ../../build
 
