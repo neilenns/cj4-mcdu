@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MCDUServerFileName: "cj4-mcdu-server.exe"
+      MCDUServerFileNameBase: "cj4-mcdu-server"
       OutputFolder: "release"
 
     defaults:
@@ -73,7 +73,7 @@ jobs:
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          mv "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
+          mv "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}-${{ env.version }}"
           cp ../../readme.md ../../build
           cp ../../version ../../build
 
@@ -84,7 +84,7 @@ jobs:
 
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "../../${{ env.OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version }}.zip" *.*
+        run: zip -qq -r "../../${{ env.OutputFolder }}/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
         working-directory: "../../build"
 
       - name: Archive production artifacts
