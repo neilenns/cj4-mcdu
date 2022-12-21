@@ -44,7 +44,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') == false
 
       - name: Verify version is set
-      - run: echo ${{ env.version }}
+        run: echo ${{ env.version }}
 
       - name: Set package.json version
         id: package_version
