@@ -84,7 +84,7 @@ jobs:
 
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "../../${{ env.OutputFolder }}/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
+        run: zip -qq -r "${{ env.OutputFolder }}/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
         working-directory: "build"
 
       - name: Archive production artifacts
