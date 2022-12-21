@@ -15,7 +15,6 @@ jobs:
 
     env:
       MCDUServerFileNameBase: "cj4-mcdu-server"
-      OutputFolder: "release"
 
     defaults:
       run:
@@ -84,18 +83,18 @@ jobs:
 
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "${{ env.OutputFolder }}/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
+        run: zip -qq -r "${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
         working-directory: "build"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: release_files
-          path: ${{ env.OutputFolder }}/**
+          path: *.zip
 
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "${{ env.OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
+          files: "${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
