@@ -91,6 +91,7 @@ function Update-Packages {
     
         Write-Host "Build finished."
     }   
+    exit 0
 }
 
 function Wait-FileChange {
@@ -109,7 +110,7 @@ function Wait-FileChange {
         NotifyFilter          = [IO.NotifyFilters]'FileName, LastWrite'
     }
     $onChange = Register-ObjectEvent $Watcher -EventName "Changed" -Action {
-        if($global:FileChanged -eq $false) {
+        if ($global:FileChanged -eq $false) {
             $details = $event.SourceEventArgs
             $Name = $details.Name
             $FullPath = $details.FullPath
@@ -117,13 +118,14 @@ function Wait-FileChange {
             $OldName = $details.OldName
             $ChangeType = $details.ChangeType
             $Timestamp = $event.TimeGenerated
-            if($FullPath -NotLike ".\src\wtsdk*"){
+            if ($FullPath -NotLike ".\src\wtsdk*") {
                 $text = "{0} was {1} at {2}" -f $FullPath, $ChangeType, $Timestamp
                 Write-Host ""
                 Write-Host $text -ForegroundColor Green
     
                 $global:FileChanged = $true
-            } elseif($FullPath -Like ".\src\wtsdk\src*") {
+            }
+            elseif ($FullPath -Like ".\src\wtsdk\src*") {
                 $text = "{0} was {1} at {2}" -f $FullPath, $ChangeType, $Timestamp
                 Write-Host ""
                 Write-Host $text -ForegroundColor Green     
