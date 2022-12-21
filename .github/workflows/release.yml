@@ -51,11 +51,11 @@ jobs:
           version: ${{ env.version }}
           file: "src/app/package.json"
 
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         id: install_node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Setup node dependencies
         id: install_dependencies
