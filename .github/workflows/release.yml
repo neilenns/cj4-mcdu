@@ -85,17 +85,17 @@ jobs:
       - name: Zip output
         id: zip_output
         run: zip -qq -r "../../${{ env.OutputFolder }}/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip" *.*
-        working-directory: "../../build"
+        working-directory: "build"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: release_files
-          path: ../../${{ env.OutputFolder }}/**
+          path: ${{ env.OutputFolder }}/**
 
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "../../release/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
+          files: "${{ OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
