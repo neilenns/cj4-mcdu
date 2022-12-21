@@ -71,7 +71,7 @@ jobs:
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          Move-Item "../build/MCDU SERVER/${{ MCDUServerFileName }}.exe" "../build/MCDU SERVER/${{ MCDUServerFileName }}-${{ env.version }}"
+          Move-Item "../build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "../build/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
           Copy-Item ../readme.md ../build
           Copy-Item ../version ../build
 
@@ -82,18 +82,18 @@ jobs:
 
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "../${{ OutputFolder}}/${{ MCDUServerFileName }}-${{ env.version}}.zip" *.*
+        run: zip -qq -r "../${{ env.OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version }}.zip" *.*
         working-directory: "../build"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: release_files
-          path: ../${{ OutputFolder }}/**
+          path: ../${{ env.OutputFolder }}/**
 
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "../release/${{ MCDUServerFileName }}-${{ env.version}}.zip"
+          files: "../release/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
