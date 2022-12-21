@@ -46,6 +46,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          cache: "npm"
+          cache-dependency-path: "src/app/package-lock.json"
 
       - name: Set versions in code
         id: set_versions
