@@ -58,6 +58,7 @@ jobs:
         with:
           node-version: 14.x
           cache: "npm"
+          cache-dependency-path: "src/app/package-lock.json"
 
       - name: Setup node dependencies
         id: install_dependencies
