@@ -90,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: release_files
-          path: *.zip
+          path: "*.zip"
 
       - name: Release
         uses: softprops/action-gh-release@v1
