@@ -19,6 +19,7 @@ jobs:
 
     defaults:
       run:
+        working-directory: src/app
         shell: pwsh
 
     steps:
@@ -45,7 +46,6 @@ jobs:
       - name: Set package.json version
         id: package_version
         uses: KageKirin/set-node-package-version@v0
-        working-directory: app
         with:
           version: ${{ env.version }}
 
@@ -59,24 +59,21 @@ jobs:
       - name: Setup node dependencies
         id: install_dependencies
         run: npm ci
-        working-directory: app
 
       - name: Build client
         id: build_client
         run: npm run build:client
-        working-directory: app
 
       - name: Build server
         id: build_server
         run: npm run build:mcdu-server
-        working-directory: app
 
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          Move-Item "build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "${{ env.OutputFolder }}/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
-          Copy-Item readme.md ../build
-          Copy-Item version ../build
+          Move-Item "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}.exe" "../../build/MCDU SERVER/${{ env.MCDUServerFileName }}-${{ env.version }}"
+          Copy-Item ../../readme.md ../../build
+          Copy-Item ../../version ../../build
 
       # Install the zip command line tool to package up the output
       - name: Install zip
@@ -85,18 +82,18 @@ jobs:
 
       - name: Zip output
         id: zip_output
-        run: zip -qq -r "${{ env.OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version }}.zip" *.*
-        working-directory: "build"
+        run: zip -qq -r "../../${{ env.OutputFolder }}/${{ env.MCDUServerFileName }}-${{ env.version }}.zip" *.*
+        working-directory: "../../build"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: release_files
-          path: ${{ env.OutputFolder }}/**
+          path: ../../${{ env.OutputFolder }}/**
 
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "release/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
+          files: "../../release/${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
