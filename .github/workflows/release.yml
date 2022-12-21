@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: windows-2022
 
+    defaults:
+      run:
+        shell: pwsh
+
     env:
       MCDUServerFileNameBase: "cj4-mcdu-server"
 
@@ -75,18 +79,16 @@ jobs:
         id: build_mod
         working-directory: src/mod
         run: ./build.ps1
-        shell: pwsh
 
       - name: Build release folder contents
         id: build_release_folder
         run: |
-          mv "build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}.exe" "build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.exe"
-          cp readme.md build
-          cp version build
+          Move-Item "build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}.exe" "build/MCDU SERVER/${{ env.MCDUServerFileNameBase }}-${{ env.version }}.exe"
+          Copy-Item readme.md build
+          Copy-Item version build
 
       - name: Zip output
         id: zip_output
-        shell: pwsh
         working-directory: build
         run: Compress-Archive . "../${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
 
