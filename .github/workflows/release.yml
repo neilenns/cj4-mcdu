@@ -104,4 +104,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "${{ env.MCDUServerFileName }}-${{ env.version}}.zip"
+          files: "${{ env.MCDUServerFileNameBase }}-${{ env.version }}.zip"
